@@ -3,7 +3,7 @@ import tito.*
 describe "test de tito" {
 
     method initialize() {
-        tito.consumir(5,wisky)
+        tito.consumir(5,whisky)
     }
 
     method consumoTerere() {
@@ -20,7 +20,7 @@ describe "test de tito" {
     }
 
     test "ahora la velocidad es 7 porque consumio terere" {
-        self.consumoTerere()
+        tito.consumir(1, terere)
         assert.equals(7,tito.velocidad())
     }
 
@@ -29,10 +29,27 @@ describe "test de tito" {
         assert.equals(0,tito.velocidad())
     }
 
-    test "rendimiento de un licuado con algunos nutrientes" {
-        licuado.agregar(10) //algo con 10 nutrientes
-        licuado.agregar(5) //algo con 5 nutrientes
-        
-        assert.equals(30 , licuado.rendimiento(2))
+    test "Si se le agregan nuevos ingredientes al licuado 
+    luego que forme parte del coctel, 
+    afecta al rendimiento que otorta el coctel" {
+        assert.equals(0,licuado.nutrientesTotales())
+        assert.equals(0, coctelDeBebidas.rendimiento(1))
+        coctelDeBebidas.agregarBebida(licuado)
+        licuado.agregar(10)
+        assert.notEquals(0, coctelDeBebidas.rendimiento(1))
+    }
+
+    test "el coctel puede incluir whisky u agua saborizada con whisky" {
+      coctelDeBebidas.agregarBebida(whisky)
+      aguaSaborizada.bebida(whisky)
+      coctelDeBebidas.agregarBebida(aguaSaborizada)
+      assert.equals([whisky,aguaSaborizada], coctelDeBebidas.bebidas())
+    }
+
+    test "el coctel puede incluir agua saborizada con coctel" {
+      aguaSaborizada.bebida(coctelDeBebidas)
+      coctelDeBebidas.agregarBebida(aguaSaborizada)
+      assert.equals([aguaSaborizada], coctelDeBebidas.bebidas())
+      assert.equals(coctelDeBebidas, aguaSaborizada.bebida())
     }
 }

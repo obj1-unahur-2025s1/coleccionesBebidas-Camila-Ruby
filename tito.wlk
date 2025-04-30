@@ -34,7 +34,9 @@ object licuado {
   const nutrientes = []
   
   method nutrientes() = nutrientes
-  
+
+  method nutrientesTotales() = nutrientes.sum()
+
   method rendimiento(cantidad) = nutrientes.sum() * cantidad
   
   method agregar(nutriente) {
@@ -49,7 +51,7 @@ object aguaSaborizada {
 }
 
 object coctelDeBebidas {
-  const property bebidas = [whisky, terere]
+  const property bebidas = []
   
   method rendimiento(cantidad) {
     if (bebidas.contains(cianuro)) {
